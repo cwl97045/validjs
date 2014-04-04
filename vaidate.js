@@ -99,3 +99,55 @@ newValid.keyup(newValid, "validateFn");
 }*/
 
 
+
+var form = function (inputArray) {
+
+  return this.init(inputArray);
+};
+
+form.prototype = {
+    init : function (inputArray) {
+        var inputs = [], subButton;
+        console.log(inputArray);
+        for(var i = 0; i < inputArray.length; i++){
+            var elm = inputArray[i];
+            if(elm.tagName === 'INPUT'){
+                //If they're using input[type="submit"]
+                if(elm.type === 'submit'){
+                  subButton = elm;
+                } else {
+                  inputs.push(elm);
+                }           
+            }
+            if(elm.tagName === 'BUTTON' && elm.className === 'validSubmit'){
+              subButton = elm;
+            }          
+                 
+        }
+        return this.formObj(inputs, subButton);
+        
+    },
+    formObj : function(input, button){
+      this.inputs = input;
+      this.subButton = button;
+    }
+};
+
+
+
+
+var forms = document.getElementsByClassName('valid');
+/*for(var prop in form.item(0)){
+  console.log(prop);
+}*/
+var formChildren = forms.item(0).children;
+var formInputArray = []; 
+
+for(var i = 0; i < formChildren.length; i++){
+    var elm = formChildren.item(i);
+    if(elm.tagName === 'INPUT' || elm.tagName === 'BUTTON' ){
+      formInputArray.push(elm);
+    }
+}
+var cooForm = new form(formInputArray);
+console.log(cooForm);
