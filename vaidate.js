@@ -1,4 +1,6 @@
 /*Should have a base formula that takes in the custom validation, display and style change functions so they can be easily changed but, still executed in the order they need to be executed in*/
+
+/*Rip out to utility.js
 var utility = {
     bind : function (context, name) {
       return function () {
@@ -6,7 +8,11 @@ var utility = {
       };
     }
   };
+*/
 
+
+
+/*rip out to genericFunc.js*/
 var generics = {
   genericMessageDisplay : function () {
     var span = document.getElementById('err');
@@ -37,6 +43,7 @@ var generics = {
 
 };
 
+/*KEEP HERE
 
 var validate = (function (){
     var validObj = function (validateFn, valid, elm, customStyle, customValid, errMes) {
@@ -58,8 +65,10 @@ var validate = (function (){
         validObj : validObj,
         init : init
     };
-})();
+})();*/
 
+
+/*Test to make sure valid*/
 var validfun = function (){
     if(this.elm.value){
       this.valid = true;  
