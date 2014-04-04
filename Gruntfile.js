@@ -7,11 +7,24 @@ module.exports = function(grunt) {
       trailing : true
     },
       target :['src/**/*.js', 'test/**/*.js']
-    }
+    },
+    concat : {
+      options : {
+        separator : ';',
+      }, 
+      dist : {
+        src : ['src/utility.js', 'src/generic.js', 'src/valid.js'],
+        dest : 'build/valid.js',
+      },
+
+    },
 
   });	
  
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.registerTask('default', ['jshint']);
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.registerTask('default', ['jshint', 'concat']);
+  
+
 
 };
