@@ -19,7 +19,7 @@ var generics = {
     if (!this.valid) { 
       span.textContent = this.errorMes;
     } else {
-      span.textContent = ''; 
+      span.textContent = '';
     }
   },
 

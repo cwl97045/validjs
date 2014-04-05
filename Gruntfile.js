@@ -11,15 +11,15 @@ module.exports = function(grunt) {
     concat : {
       options : {
         separator : ';',
-      }, 
+      },
       dist : {
-        src : ['src/utility.js', 'src/generic.js', 'src/valid.js'],
+        src : ['src/utility.js', 'src/generic.js', 'src/valid.js' ,'src/form.js'],
         dest : 'build/valid.js',
       },
 
     },
 
-  });	
+  });
  
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
