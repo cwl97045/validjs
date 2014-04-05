@@ -7,10 +7,23 @@ var form = function (inputArray) {
 };
 
 form.prototype = {
-    //init function should use the selected element, deal with a collection of elements, use and id or class to find an object
-    init : function (inputArray) {
-        var inputs = [], subButton;
-        console.log(inputArray);
+    /*init function should use the selected element, deal with a collection of elements, use and id or class to find an object find button 
+    Take inputs from form, wrap them as validation objects and add them to the form object. Also check for a submit button*/
+    init : function (formSelector) {
+      var inputs = [], subButton, form,firstChar,formChildren;
+      //Need to get the form from the document
+      form = utility.getFormElement(formSelector);
+      //From the form I need its children
+      formChildren = form.children;
+      console.log(formChildren);
+      //each child must become a validation object
+
+
+
+
+
+
+       /* var inputs = [], subButton;
         for(var i = 0; i < inputArray.length; i++){
             var elm = inputArray[i];
             if(elm.tagName === 'INPUT'){
@@ -27,6 +40,8 @@ form.prototype = {
                  
         }
         return this.formObj(inputs, subButton);
+        */
+
         
     },
     formObj : function(input, button){

@@ -75,7 +75,7 @@ var validfun = function (){
     } else {
       this.valid = false;
     }
-    this.changeStyle();    
+    this.changeStyle();
 };
 
 var newStyle = function (){

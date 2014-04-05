@@ -3,10 +3,27 @@ var utility = {
       return function () {
         return context[name].apply(context, arguments);
       };
-    }
+    },
+    getFormElement : function (formSelector) {
+      var form,firstChar = formSelector.charAt(0);
+      //Check if it's an ID
+      if(firstChar === '#'){
+        form = document.getElementById(formSelector.slice(1));
+      //Check if it's a class
+      } else if (firstChar === '.'){
+        form = document.getElementByClassName(formSelector.slice(1));
+      //Selector is an element
+      } else {
+        if(formSelector.nodeType === 1){
+          form = formSelector;
+        }
+      }
+      return form;
+    },
+
   };
 
-;var generics = {
+var generics = {
   genericMessageDisplay : function () {
     var span = document.getElementById('err');
     if (!this.valid) { 
@@ -34,7 +51,9 @@ var utility = {
      this.displayMessage();
   },
 
-};;var validate = (function (){
+};
+
+var validate = (function (){
     var validObj = function (validateFn, valid, elm, customStyle, customValid, errMes) {
       this.elm = elm;  
       this.valid = valid;
@@ -55,18 +74,27 @@ var utility = {
         init : init
     };
 })();
-;//Developer can create a form using a class selector, html element, or id. Jquery style. # and . 
+//Developer can create a form using a class selector, html element, or id. Jquery style. # and . 
 
 
 
-var form = function (inputArray) {
-  return this.init(inputArray);
+var form = function (formSelector) {
+  return form.init(formSelector);
 };
 
 form.prototype = {
-    init : function (inputArray) {
-        var inputs = [], subButton;
-        console.log(inputArray);
+    /*init function should use the selected element, deal with a collection of elements, use and id or class to find an object find button 
+    Take inputs from form, wrap them as validation objects and add them to the form object. Also check for a submit button*/
+    init : function (formSelector) {
+      var inputs = [], subButton, form,firstChar,formChildren;
+      //Need to get the form from the document
+      form = utility.getFormElement(formSelector);
+      //From the form I need its children
+      formChildren = form.children;
+      console.log(formChildren);
+      //each child must become a validation object
+
+       /* var inputs = [], subButton;
         for(var i = 0; i < inputArray.length; i++){
             var elm = inputArray[i];
             if(elm.tagName === 'INPUT'){
@@ -83,6 +111,8 @@ form.prototype = {
                  
         }
         return this.formObj(inputs, subButton);
+        */
+
         
     },
     formObj : function(input, button){

@@ -18,12 +18,22 @@ module.exports = function(grunt) {
       },
 
     },
+    mocha : {
+      test : {
+        src : ['test/*.html'],
+        options : {
+          run : true,
+        },
+      },
+
+    },
 
   });
  
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.registerTask('default', ['jshint', 'concat', 'jshint']);
+  grunt.loadNpmTasks('grunt-mocha');
+  grunt.registerTask('default', ['jshint', 'concat', 'jshint', 'mocha']);
   
 
 
