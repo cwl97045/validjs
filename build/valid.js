@@ -5,16 +5,16 @@ var utility = {
       };
     },
     getFormElement : function (formSelector) {
-      var form,firstChar = formSelector.charAt(0);
+      var form, firstChar = formSelector.charAt(0);
       //Check if it's an ID
-      if(firstChar === '#'){
+      if (firstChar === '#') {
         form = document.getElementById(formSelector.slice(1));
       //Check if it's a class
-      } else if (firstChar === '.'){
+      } else if (firstChar === '.') {
         form = document.getElementByClassName(formSelector.slice(1));
       //Selector is an element
       } else {
-        if(formSelector.nodeType === 1){
+        if (formSelector.nodeType === 1) {
           form = formSelector;
         }
       }
@@ -51,9 +51,7 @@ var generics = {
      this.displayMessage();
   },
 
-};
-
-var validate = (function (){
+};var validate = (function (){
     var validObj = function (validateFn, valid, elm, customStyle, customValid, errMes) {
       this.elm = elm;  
       this.valid = valid;
@@ -78,8 +76,8 @@ var validate = (function (){
 
 
 
-var form = function (formSelector) {
-  return form.init(formSelector);
+var form = function (inputArray) {
+  return this.prototype.init(inputArray);
 };
 
 form.prototype = {
@@ -90,9 +88,18 @@ form.prototype = {
       //Need to get the form from the document
       form = utility.getFormElement(formSelector);
       //From the form I need its children
+      //Might need to check if form is an array, if array do everything for ever form in array.
       formChildren = form.children;
-      console.log(formChildren);
       //each child must become a validation object
+      for(var i = 0; i < formChildren.length; i++){
+        var elm = formChildren[i];
+
+      }
+
+
+
+
+
 
        /* var inputs = [], subButton;
         for(var i = 0; i < inputArray.length; i++){

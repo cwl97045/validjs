@@ -6,14 +6,14 @@ module.exports = function(grunt) {
       eqeqeq: true,
       trailing : true
     },
-      target :['src/**/*.js', 'test/**/*.js']
+      all : ['src/**/*.js', 'test/testrunner/*.js', 'build/**/*.js', '!**/vendor/*.js'],
     },
     concat : {
       options : {
-        separator : ';',
+        separator : '',
       },
       dist : {
-        src : ['src/utility.js', 'src/generic.js', 'src/valid.js' ,'src/form.js'],
+        src : ['src/global.js','src/utility.js', 'src/generic.js', 'src/valid.js' ,'src/form.js'],
         dest : 'build/valid.js',
       },
 
@@ -23,7 +23,8 @@ module.exports = function(grunt) {
         src : ['test/*.html'],
         options : {
           run : true,
-        },
+          log : true
+        }
       },
 
     },
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-mocha');
-  grunt.registerTask('default', ['jshint', 'concat', 'jshint', 'mocha']);
+  grunt.registerTask('default', ['jshint', 'concat', 'jshint','mocha']);
   
 
 

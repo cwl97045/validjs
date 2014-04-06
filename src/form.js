@@ -3,7 +3,7 @@
 
 
 var form = function (inputArray) {
-  return this.init(inputArray);
+  return this.prototype.init(inputArray);
 };
 
 form.prototype = {
@@ -14,9 +14,13 @@ form.prototype = {
       //Need to get the form from the document
       form = utility.getFormElement(formSelector);
       //From the form I need its children
+      //Might need to check if form is an array, if array do everything for ever form in array.
       formChildren = form.children;
-      console.log(formChildren);
       //each child must become a validation object
+      for(var i = 0; i < formChildren.length; i++){
+        var elm = formChildren[i];
+
+      }
 
 
 

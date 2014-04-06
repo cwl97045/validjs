@@ -9,7 +9,6 @@ var utility = {
       //Check if it's an ID
       if(firstChar === '#'){
         form = document.getElementById(formSelector.slice(1));
-        console.log(form);
       //Check if it's a class
       } else if (firstChar === '.'){
         form = document.getElementByClassName(formSelector.slice(1));
@@ -19,7 +18,6 @@ var utility = {
           form = formSelector;
         }
       }
-      console.log(form);
       return form;
     },
 
@@ -53,8 +51,7 @@ var generics = {
      this.displayMessage();
   },
 
-};
-var validate = (function (){
+};var validate = (function (){
     var validObj = function (validateFn, valid, elm, customStyle, customValid, errMes) {
       this.elm = elm;  
       this.valid = valid;
@@ -78,10 +75,10 @@ var validate = (function (){
 //Developer can create a form using a class selector, html element, or id. Jquery style. # and . 
 
 
+
 var form = function (inputArray) {
   return this.prototype.init(inputArray);
 };
-
 
 form.prototype = {
     /*init function should use the selected element, deal with a collection of elements, use and id or class to find an object find button 
@@ -89,19 +86,15 @@ form.prototype = {
     init : function (formSelector) {
       var inputs = [], subButton, form,firstChar,formChildren;
       //Need to get the form from the document
-      console.log(formSelector);
       form = utility.getFormElement(formSelector);
       //From the form I need its children
       formChildren = form.children;
-      console.log(formChildren);
       //each child must become a validation object
-
-
-
-
-
-
-       /* var inputs = [], subButton;
+      for(var i = 0; i < formChildren.length; i++){
+        var elm = formChildren[i];
+        console.log(elm);
+      }
+      /* var inputs = [], subButton;
         for(var i = 0; i < inputArray.length; i++){
             var elm = inputArray[i];
             if(elm.tagName === 'INPUT'){
@@ -127,4 +120,3 @@ form.prototype = {
       this.subButton = button;
     }
 };
-

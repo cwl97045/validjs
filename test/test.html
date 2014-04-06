@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+	<div id="mocha">
+	</div>
+	<script src="vendor/mocha.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+      mocha.setup('bdd');
+	</script>
+	<script src="vendor/chai.js"></script>
+	<script>
+	  var assert = chai.assert;
+	</script>
+	<script src="../build/valid.js"></script>	
+	<script src="testrunner/utilityTests.js"></script>
+	<script>
+		mocha.run();
+	</script>
+</body>
+</html>

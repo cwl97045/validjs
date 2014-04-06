@@ -16,7 +16,7 @@ var utility = {
 var generics = {
   genericMessageDisplay : function () {
     var span = document.getElementById('err');
-    if (!this.valid) { 
+    if (!this.valid) {
       span.textContent = this.errorMes;
     } else {
       span.textContent = '';
@@ -25,7 +25,7 @@ var generics = {
 
   genericStyleChange : function () {
     if(this.valid){
-      this.elm.style.border='';  
+      this.elm.style.border='';
     } else {
       this.elm.style.border='1px solid red';
     }
@@ -33,7 +33,7 @@ var generics = {
 
   genericValidFun : function () {
      if (this.elm.value) {
-       this.valid = true;  
+       this.valid = true;
      } else {
        this.valid = false;
      }
@@ -71,7 +71,7 @@ var validate = (function (){
 /*Test to make sure valid*/
 var validfun = function (){
     if(this.elm.value){
-      this.valid = true;  
+      this.valid = true;
     } else {
       this.valid = false;
     }
