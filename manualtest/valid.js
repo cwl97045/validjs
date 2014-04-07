@@ -5,20 +5,32 @@ var utility = {
       };
     },
     getFormElement : function (formSelector) {
-      var form,firstChar = formSelector.charAt(0);
-      //Check if it's an ID
-      if(firstChar === '#'){
-        form = document.getElementById(formSelector.slice(1));
-      //Check if it's a class
-      } else if (firstChar === '.'){
-        form = document.getElementByClassName(formSelector.slice(1));
+      var form, formArray =[], i;
+      if(typeof formSelector === 'string'){
+        firstChar = formSelector.charAt(0);
+        if (firstChar === '#') {
+            form = document.getElementById(formSelector.slice(1));
+        //Check if it's a class 
+        } else {
+        //Will return as a nodeList, convert into array and bounce out
+          form = document.getElementsByClassName(formSelector.slice(1));
+          console.log(form);
+          for(i = 0 ; i < form.length; i++){
+            formArray.push(form.item(i));
+          }
+        }
       //Selector is an element
       } else {
-        if(formSelector.nodeType === 1){
+        if (formSelector.nodeType === 1) {
           form = formSelector;
         }
       }
-      return form;
+      //if formArray and it's first spot are not undefined return the array
+      if(formArray && formArray[0]){
+        return formArray;
+      } else {
+        return form;
+      }
     },
 
   };
@@ -86,15 +98,30 @@ form.prototype = {
     init : function (formSelector) {
       var inputs = [], subButton, form,firstChar,formChildren;
       //Need to get the form from the document
+      console.log(formSelector);
       form = utility.getFormElement(formSelector);
       //From the form I need its children
-      formChildren = form.children;
+      //Might need to check if form is an array, if array do everything for ever form in nodeList or html collection
+     
       //each child must become a validation object
-      for(var i = 0; i < formChildren.length; i++){
-        var elm = formChildren[i];
-        console.log(elm);
+      //need to filter out an input type submit or button with 'valid' class
+      if(form && form[0]){
+        for(var j = 0; i < form.length; i++){}
+      } else {
+          formChildren = form.children;
+          for(var i = 0; i < formChildren.length; i++){
+            var elm = formChildren[i];
+            inputs.push(elm);
+          }
       }
-      /* var inputs = [], subButton;
+   
+
+
+
+
+
+
+       /* var inputs = [], subButton;
         for(var i = 0; i < inputArray.length; i++){
             var elm = inputArray[i];
             if(elm.tagName === 'INPUT'){

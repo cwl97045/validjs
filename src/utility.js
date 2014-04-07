@@ -5,20 +5,31 @@ var utility = {
       };
     },
     getFormElement : function (formSelector) {
-      var form, firstChar = formSelector.charAt(0);
-      //Check if it's an ID
-      if (firstChar === '#') {
-        form = document.getElementById(formSelector.slice(1));
-      //Check if it's a class
-      } else if (firstChar === '.') {
-        form = document.getElementByClassName(formSelector.slice(1));
+      var form, formArray =[], i;
+      if(typeof formSelector === 'string'){
+        firstChar = formSelector.charAt(0);
+        if (firstChar === '#') {
+            form = document.getElementById(formSelector.slice(1));
+        //Check if it's a class 
+        } else {
+        //Will return as a nodeList, convert into array and bounce out
+          form = document.getElementsByClassName(formSelector.slice(1));
+          for(i = 0 ; i < form.length; i++){
+            formArray.push(form.item(i));
+          }
+        }
       //Selector is an element
       } else {
         if (formSelector.nodeType === 1) {
           form = formSelector;
         }
       }
-      return form;
+      //if formArray and it's first spot are not undefined return the array
+      if(formArray && formArray[0]){
+        return formArray;
+      } else {
+        return form;
+      }
     },
 
   };

@@ -5,20 +5,31 @@ var utility = {
       };
     },
     getFormElement : function (formSelector) {
-      var form, firstChar = formSelector.charAt(0);
-      //Check if it's an ID
-      if (firstChar === '#') {
-        form = document.getElementById(formSelector.slice(1));
-      //Check if it's a class
-      } else if (firstChar === '.') {
-        form = document.getElementByClassName(formSelector.slice(1));
+      var form, formArray =[], i;
+      if(typeof formSelector === 'string'){
+        firstChar = formSelector.charAt(0);
+        if (firstChar === '#') {
+            form = document.getElementById(formSelector.slice(1));
+        //Check if it's a class 
+        } else {
+        //Will return as a nodeList, convert into array and bounce out
+          form = document.getElementsByClassName(formSelector.slice(1));
+          for(i = 0 ; i < form.length; i++){
+            formArray.push(form.item(i));
+          }
+        }
       //Selector is an element
       } else {
         if (formSelector.nodeType === 1) {
           form = formSelector;
         }
       }
-      return form;
+      //if formArray and it's first spot are not undefined return the array
+      if(formArray && formArray[0]){
+        return formArray;
+      } else {
+        return form;
+      }
     },
 
   };
@@ -88,14 +99,20 @@ form.prototype = {
       //Need to get the form from the document
       form = utility.getFormElement(formSelector);
       //From the form I need its children
-      //Might need to check if form is an array, if array do everything for ever form in array.
-      formChildren = form.children;
+      //Might need to check if form is an array, if array do everything for ever form in nodeList or html collection
       //each child must become a validation object
-      for(var i = 0; i < formChildren.length; i++){
-        var elm = formChildren[i];
-
+      //if form is an array, do the process through each of the form elements and there children
+      //need to filter out an input type submit or button with 'valid' class
+      if(form.isArray()){
+        console.log('Hip hip array!');
+      } else {
+          formChildren = form.children;
+          for(var i = 0; i < formChildren.length; i++){
+          var elm = formChildren[i];
+          inputs.push(elm);
+        }
       }
-
+   
 
 
 

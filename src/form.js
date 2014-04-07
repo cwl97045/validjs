@@ -14,14 +14,20 @@ form.prototype = {
       //Need to get the form from the document
       form = utility.getFormElement(formSelector);
       //From the form I need its children
-      //Might need to check if form is an array, if array do everything for ever form in array.
-      formChildren = form.children;
+      //Might need to check if form is an array, if array do everything for ever form in nodeList or html collection
       //each child must become a validation object
-      for(var i = 0; i < formChildren.length; i++){
-        var elm = formChildren[i];
-
+      //if form is an array, do the process through each of the form elements and there children
+      //need to filter out an input type submit or button with 'valid' class
+      if(form.isArray()){
+        console.log('Hip hip array!');
+      } else {
+          formChildren = form.children;
+          for(var i = 0; i < formChildren.length; i++){
+          var elm = formChildren[i];
+          inputs.push(elm);
+        }
       }
-
+   
 
 
 

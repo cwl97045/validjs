@@ -1,4 +1,4 @@
 window.onload = function (){
-  form.call(form,'#myForm');
+  form.call(form,'.form');
 };
   
