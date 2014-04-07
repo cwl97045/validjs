@@ -7,14 +7,13 @@ var utility = {
     getFormElement : function (formSelector) {
       var form, formArray =[], i;
       if(typeof formSelector === 'string'){
-        firstChar = formSelector.charAt(0);
+        var firstChar = formSelector.charAt(0);
         if (firstChar === '#') {
             form = document.getElementById(formSelector.slice(1));
         //Check if it's a class 
         } else {
         //Will return as a nodeList, convert into array and bounce out
           form = document.getElementsByClassName(formSelector.slice(1));
-          console.log(form);
           for(i = 0 ; i < form.length; i++){
             formArray.push(form.item(i));
           }
@@ -95,31 +94,35 @@ var form = function (inputArray) {
 form.prototype = {
     /*init function should use the selected element, deal with a collection of elements, use and id or class to find an object find button 
     Take inputs from form, wrap them as validation objects and add them to the form object. Also check for a submit button*/
-    init : function (formSelector) {
-      var inputs = [], subButton, form,firstChar,formChildren;
-      //Need to get the form from the document
-      console.log(formSelector);
-      form = utility.getFormElement(formSelector);
-      //From the form I need its children
-      //Might need to check if form is an array, if array do everything for ever form in nodeList or html collection
-     
-      //each child must become a validation object
-      //need to filter out an input type submit or button with 'valid' class
-      if(form && form[0]){
-        for(var j = 0; i < form.length; i++){}
-      } else {
-          formChildren = form.children;
-          for(var i = 0; i < formChildren.length; i++){
-            var elm = formChildren[i];
-            inputs.push(elm);
-          }
+  init : function (formSelector) {
+    var inputs = [], subButton, form, formChildren, i, j, elm;
+    //Need to get the form from the document
+    form = utility.getFormElement(formSelector);
+    //From the form I need its children
+    //Might need to check if form is an array, if array do everything for ever form in nodeList or html collection
+    //each child must become a validation object
+    //if form is an array, do the process through each of the form elements and there children
+    //need to filter out an input type submit or button with 'valid' class
+  //  if (form && form[0]) {
+   //   for (j = 0; j < form.length; j++) {
+
+   //   }
+   // } else {
+      formChildren = form.children;
+      for (i = 0; i < formChildren.length; i++) {
+        elm = formChildren[i];
+        if(elm.tagName === 'INPUT' && elm.className === 'validate'){
+          var validationElm = new validate.init(null, false, elm, null);
+          inputs.push(validationElm);
+        }
+        if((elm.tagName === 'BUTTON' && elm.className ==='validateSubmit') || (elm.tagName === 'INPUT' && elm.type === 'submit')){
+          subButton  = elm; 
+        }
       }
-   
-
-
-
-
-
+      console.log(inputs);
+      var obj = new this.formObj(inputs, subButton);   
+      console.log(obj);
+      return obj;
 
        /* var inputs = [], subButton;
         for(var i = 0; i < inputArray.length; i++){
@@ -139,11 +142,9 @@ form.prototype = {
         }
         return this.formObj(inputs, subButton);
         */
-
-        
-    },
-    formObj : function(input, button){
-      this.inputs = input;
-      this.subButton = button;
-    }
+  },
+  formObj : function (input, button) {
+    this.inputs = input;
+    this.subButton = button;
+  }
 };

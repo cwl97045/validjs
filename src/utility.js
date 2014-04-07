@@ -7,7 +7,7 @@ var utility = {
     getFormElement : function (formSelector) {
       var form, formArray =[], i;
       if(typeof formSelector === 'string'){
-        firstChar = formSelector.charAt(0);
+        var firstChar = formSelector.charAt(0);
         if (firstChar === '#') {
             form = document.getElementById(formSelector.slice(1));
         //Check if it's a class 
