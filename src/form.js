@@ -24,39 +24,50 @@ form.prototype = {
    //   }
    // } else {
       formChildren = form.children;
+      var validationElm;
       for (i = 0; i < formChildren.length; i++) {
         elm = formChildren[i];
         if(elm.tagName === 'INPUT' && elm.className === 'validate'){
-          var validationElm = new validate.init(null, false, elm, null);
+          validationElm = new validate.init(elm);
+          validationElm.keyup();
           inputs.push(validationElm);
         }
         if((elm.tagName === 'BUTTON' && elm.className ==='validateSubmit') || (elm.tagName === 'INPUT' && elm.type === 'submit')){
           subButton  = elm; 
         }
       }
-      return new this.formObj(inputs, subButton);   
 
-       /* var inputs = [], subButton;
-        for(var i = 0; i < inputArray.length; i++){
-            var elm = inputArray[i];
-            if(elm.tagName === 'INPUT'){
-                //If they're using input[type="submit"]
-                if(elm.type === 'submit'){
-                  subButton = elm;
-                } else {
-                  inputs.push(elm);
-                }
-            }
-            if(elm.tagName === 'BUTTON' && elm.className === 'validSubmit'){
-              subButton = elm;
-            }
-                 
-        }
-        return this.formObj(inputs, subButton);
-        */
+      return new this.formObj(inputs, subButton);   
   },
   formObj : function (input, button) {
+    /* TODOs : 
+      1.Write tests for creating 
+      2.Make this better!
+    */
     this.inputs = input;
     this.subButton = button;
+    this.success = function () {
+      console.log('All fields valid');
+    };
+    this.fail = function() {
+      console.log('Some fields are invalid');
+    };
+    this.evalFunc = function (e){ 
+      e.preventDefault();
+      var allValid = true, inputs = this.inputs;
+      for(var i = 0; i < inputs.length; i++){
+        if(!inputs[i].valid){
+          allValid = false;
+        }
+      }
+      if(allValid){
+        this.success();
+      } else {
+        this.fail();
+      }  
+    };    
+    this.clickSub = function (){
+      this.subButton.addEventListener('click', utility.bind(this , 'evalFunc'));
+    };
   }
 };

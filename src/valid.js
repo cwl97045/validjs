@@ -1,14 +1,14 @@
 var validate = (function (){
-    var validObj = function (validateFn, valid, elm, customStyle, customValid, errMes) {
+    var validObj = function (elm) {
       this.elm = elm;  
-      this.valid = valid;
-      this.errorMes = errMes || "This field is invalid";  
-      this.validateFn =  customValid || generics.genericValidFun;
-      this.changeStyle = customStyle || generics.genericStyleChange;
-      this.keyup = function(validObj, funcName){
-        this.elm.addEventListener('keyup', utility.bind(validObj, funcName));             
+      this.valid = false;
+     // this.errorMes = "This field is invalid";  
+      this.validateFn = generics.genericValidFun;
+      this.changeStyle = generics.genericStyleChange;
+      this.keyup = function(){       
+        this.elm.addEventListener('keydown', utility.bind(this, 'validateFn'));             
       };
-      this.displayMessage = generics.genericMessageDisplay;
+      //this.displayMessage = generics.genericMessageDisplay;
     };
     var init = function (validateFn, valid,elm, customStyle){
       return new validate.validObj(validateFn, valid,elm, customStyle);

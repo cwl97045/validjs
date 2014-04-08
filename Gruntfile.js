@@ -14,8 +14,12 @@ module.exports = function(grunt) {
       },
       dist : {
         src : ['src/global.js','src/utility.js', 'src/generic.js', 'src/valid.js' ,'src/form.js'],
-        dest : 'build/valid.js',
+        dest :'build/valid.js',
       },
+      test : {
+        src : ['src/global.js','src/utility.js', 'src/generic.js', 'src/valid.js' ,'src/form.js'],
+        dest : 'manualtest/valid.js',
+      }
 
     },
     mocha : {
@@ -34,7 +38,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-mocha');
-  grunt.registerTask('default', ['jshint', 'concat', 'jshint','mocha']);
+  grunt.registerTask('default', ['jshint', 'concat' ,'mocha', 'concat']);
   
 
 

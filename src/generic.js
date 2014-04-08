@@ -17,13 +17,24 @@ var generics = {
   },
 
   genericValidFun : function () {
-     if (this.elm.value) {
+     if (this.elm.value.length > 0) {
        this.valid = true;  
      } else {
        this.valid = false;
      }
-     this.changeStyle();
-     this.displayMessage();
+    // this.changeStyle();
+     //this.displayMessage();
   },
+
+  genericCheckField : function (){
+    var inputs = this.inputs;
+    var invalidField = false;
+    for(var i = 0; i < inputs.length; i++){
+      if(!inputs[i].valid){
+        invalidField = true;
+      }
+    }
+    return invalidField;  
+  }
 
 };

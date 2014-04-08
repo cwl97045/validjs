@@ -53,26 +53,37 @@ var generics = {
   },
 
   genericValidFun : function () {
-     if (this.elm.value) {
+     if (this.elm.value.length > 0) {
        this.valid = true;  
      } else {
        this.valid = false;
      }
-     this.changeStyle();
-     this.displayMessage();
+    // this.changeStyle();
+     //this.displayMessage();
   },
 
+  genericCheckField : function (){
+    var inputs = this.inputs;
+    var invalidField = false;
+    for(var i = 0; i < inputs.length; i++){
+      if(!inputs[i].valid){
+        invalidField = true;
+      }
+    }
+    return invalidField;  
+  }
+
 };var validate = (function (){
-    var validObj = function (validateFn, valid, elm, customStyle, customValid, errMes) {
+    var validObj = function (elm) {
       this.elm = elm;  
-      this.valid = valid;
-      this.errorMes = errMes || "This field is invalid";  
-      this.validateFn =  customValid || generics.genericValidFun;
-      this.changeStyle = customStyle || generics.genericStyleChange;
-      this.keyup = function(validObj, funcName){
-        this.elm.addEventListener('keyup', utility.bind(validObj, funcName));             
+      this.valid = false;
+     // this.errorMes = "This field is invalid";  
+      this.validateFn = generics.genericValidFun;
+      this.changeStyle = generics.genericStyleChange;
+      this.keyup = function(){       
+        this.elm.addEventListener('keydown', utility.bind(this, 'validateFn'));             
       };
-      this.displayMessage = generics.genericMessageDisplay;
+      //this.displayMessage = generics.genericMessageDisplay;
     };
     var init = function (validateFn, valid,elm, customStyle){
       return new validate.validObj(validateFn, valid,elm, customStyle);
@@ -109,42 +120,53 @@ form.prototype = {
    //   }
    // } else {
       formChildren = form.children;
+      var validationElm;
       for (i = 0; i < formChildren.length; i++) {
         elm = formChildren[i];
         if(elm.tagName === 'INPUT' && elm.className === 'validate'){
-          var validationElm = new validate.init(null, false, elm, null);
+          validationElm = new validate.init(elm);
+          validationElm.keyup();
           inputs.push(validationElm);
         }
         if((elm.tagName === 'BUTTON' && elm.className ==='validateSubmit') || (elm.tagName === 'INPUT' && elm.type === 'submit')){
           subButton  = elm; 
         }
       }
-      console.log(inputs);
-      var obj = new this.formObj(inputs, subButton);   
-      console.log(obj);
-      return obj;
 
-       /* var inputs = [], subButton;
-        for(var i = 0; i < inputArray.length; i++){
-            var elm = inputArray[i];
-            if(elm.tagName === 'INPUT'){
-                //If they're using input[type="submit"]
-                if(elm.type === 'submit'){
-                  subButton = elm;
-                } else {
-                  inputs.push(elm);
-                }
-            }
-            if(elm.tagName === 'BUTTON' && elm.className === 'validSubmit'){
-              subButton = elm;
-            }
-                 
-        }
-        return this.formObj(inputs, subButton);
-        */
+      return new this.formObj(inputs, subButton);   
   },
   formObj : function (input, button) {
+    /* TODOs : 
+      1.Write tests for creating 
+      2.Make this better!
+    */
     this.inputs = input;
     this.subButton = button;
+    this.success = function () {
+      console.log('All fields valid');
+    };
+    this.fail = function() {
+      console.log('Some fields are invalid');
+    };
+    this.evalFunc = function (e){ 
+      e.preventDefault(); 
+      for(var prop in e){
+        console.log(prop);
+      }
+      var allValid = true, inputs = this.inputs;
+      for(var i = 0; i < inputs.length; i++){
+        if(!inputs[i].valid){
+          allValid = false;
+        }
+      }
+      if(allValid){
+        this.success();
+      } else {
+        this.fail();
+      }  
+    };    
+    this.clickSub = function (){
+      this.subButton.addEventListener('click', utility.bind(this , 'evalFunc'));
+    };
   }
 };
