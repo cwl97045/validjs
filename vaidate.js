@@ -112,7 +112,6 @@ form.prototype = {
         for(var i = 0; i < inputArray.length; i++){
             var elm = inputArray[i];
             if(elm.tagName === 'INPUT'){
-                //If they're using input[type="submit"]
                 if(elm.type === 'submit'){
                   subButton = elm;
                 } else {

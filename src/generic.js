@@ -22,7 +22,7 @@ var generics = {
      } else {
        this.valid = false;
      }
-    // this.changeStyle();
+     this.changeStyle();
      //this.displayMessage();
   },
 

@@ -58,7 +58,7 @@ var generics = {
      } else {
        this.valid = false;
      }
-    // this.changeStyle();
+     this.changeStyle();
      //this.displayMessage();
   },
 
@@ -77,11 +77,13 @@ var generics = {
     var validObj = function (elm) {
       this.elm = elm;  
       this.valid = false;
-     // this.errorMes = "This field is invalid";  
+      this.invalidMes = 'This is invalid!'; 
       this.validateFn = generics.genericValidFun;
       this.changeStyle = generics.genericStyleChange;
+      //Not doing exactly what I want it to do.
       this.keyup = function(){       
-        this.elm.addEventListener('keydown', utility.bind(this, 'validateFn'));             
+        this.elm.addEventListener('keydown', utility.bind(this, 'validateFn'));
+        this.elm.addEventListener('keyup', utility.bind(this, 'validateFn'));             
       };
       //this.displayMessage = generics.genericMessageDisplay;
     };
@@ -138,6 +140,7 @@ form.prototype = {
     */
     this.inputs = input;
     this.subButton = button;
+    this.errorMessages = [];
     this.success = function () {
       console.log('All fields valid');
     };
@@ -150,11 +153,20 @@ form.prototype = {
       for(var i = 0; i < inputs.length; i++){
         if(!inputs[i].valid){
           allValid = false;
+          this.errorMessages.push(inputs[i].invalidMes);
         }
       }
       if(allValid){
         this.success();
       } else {
+        for(var j = 0; j < this.errorMessages.length; j++){
+          var mes = this.errorMessages[j];
+          var errField = document.getElementById('err');
+          var testErr = document.createElement('p');
+          testErr.textContent = mes;
+          errField.appendChild(testErr);
+
+        }
         this.fail();
       }  
     };    
