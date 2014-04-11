@@ -159,14 +159,6 @@ form.prototype = {
       if(allValid){
         this.success();
       } else {
-        for(var j = 0; j < this.errorMessages.length; j++){
-          var mes = this.errorMessages[j];
-          var errField = document.getElementById('err');
-          var testErr = document.createElement('p');
-          testErr.textContent = mes;
-          errField.appendChild(testErr);
-
-        }
         this.fail();
       }  
     };    
