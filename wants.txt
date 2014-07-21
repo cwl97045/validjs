@@ -3,3 +3,4 @@ Wants:
  2. Add validation to check that two input values are the same eg pass == confirmpass
  3. Add ability to apply regexp to fields
  4. Add check length methods
+ 5. Add style change and message field to allow for more visual errors.
