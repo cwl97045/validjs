@@ -1,0 +1,5 @@
+Wants:
+ 1. Fix it so developer doesn't have to call .call() when implementing 
+ 2. Add validation to check that two input values are the same eg pass == confirmpass
+ 3. Add ability to apply regexp to fields
+ 4. Add check length methods
